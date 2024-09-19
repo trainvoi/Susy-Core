@@ -129,11 +129,6 @@ public class MetaTileEntityBlender extends RecipeMapMultiblockController {
 
         /**
          * This is a method for biome checking
-         *
-         * @see GasCollectorDimensionProperty
-         * We can actually use biome id for this, I originally wanted this to support {@link BiomeDictionary}, but I gave up.
-         * @see Biome#getIdForBiome(Biome)
-         * @see Biome#getBiomeForId(int)
          */
         public boolean checkBiomeRequirement(@NotNull Recipe recipe) {
             if (!recipe.hasProperty(BiomeProperty.getInstance())) return true;
