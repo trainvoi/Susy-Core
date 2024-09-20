@@ -9,7 +9,6 @@ import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.recipes.Recipe;
-import gregtech.api.recipes.recipeproperties.GasCollectorDimensionProperty;
 import gregtech.api.unification.material.Materials;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
@@ -25,13 +24,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.NotNull;
 import supersymmetry.api.recipes.SuSyRecipeMaps;
-import supersymmetry.api.recipes.properties.BiomeProperty;
+import supersymmetry.api.recipes.properties.HeightProperty;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -45,7 +42,7 @@ public class MetaTileEntityBlender extends RecipeMapMultiblockController {
         /**
          * This is important, and its pretty much all you need to do in the MTE class
          */
-        this.recipeMapWorkable = new BiomeRecipeLogic(this);
+        this.recipeMapWorkable = new HeightRecipeLogic(this);
     }
 
     @Override
@@ -107,14 +104,14 @@ public class MetaTileEntityBlender extends RecipeMapMultiblockController {
 
 
     /**
-     * A custom recipeLogic class, for adding our check for biomes
+     * A custom recipeLogic class, for adding our check for Heights
      * This can be moved out to a stand-alone class.
      * But generally speaking if you do not plan to re-use this, making it an inner class should be fine.
      * CEu itself has many such cases.
      */
-    public static class BiomeRecipeLogic extends MultiblockRecipeLogic {
+    public static class HeightRecipeLogic extends MultiblockRecipeLogic {
 
-        public BiomeRecipeLogic(RecipeMapMultiblockController tileEntity) {
+        public HeightRecipeLogic(RecipeMapMultiblockController tileEntity) {
             super(tileEntity, true);
         }
 
@@ -124,16 +121,16 @@ public class MetaTileEntityBlender extends RecipeMapMultiblockController {
          */
         @Override
         public boolean checkRecipe(@NotNull Recipe recipe) {
-            return checkBiomeRequirement(recipe) && super.checkRecipe(recipe);
+            return checkHeightRequirement(recipe) && super.checkRecipe(recipe);
         }
 
         /**
-         * This is a method for biome checking
+         * This is a method for Height checking
          */
-        public boolean checkBiomeRequirement(@NotNull Recipe recipe) {
-            if (!recipe.hasProperty(BiomeProperty.getInstance())) return true;
-            return recipe.getProperty(BiomeProperty.getInstance(), BiomeProperty.BiomePropertyList.EMPTY_LIST)
-                    .checkBiome(getMetaTileEntity().getWorld().getBiome(getMetaTileEntity().getPos()));
+        public boolean checkHeightRequirement(@NotNull Recipe recipe) {
+            if (!recipe.hasProperty(HeightProperty.getInstance())) return true;
+            return recipe.getProperty(HeightProperty.getInstance(), null)
+                    .checkHeight(getMetaTileEntity().getPos().getY());
         }
     }
 }

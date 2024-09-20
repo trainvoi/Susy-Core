@@ -306,7 +306,7 @@ public class SuSyRecipeMaps {
      * Replace {@link SimpleRecipeBuilder} here with your own recipeBuilder
      */
     //    public static final RecipeMap<SimpleRecipeBuilder> BLENDER_RECIPES = new RecipeMap<>("blender", 9, 1, 6, 2, new SimpleRecipeBuilder().EUt(VA[LV]), false)
-    public static final RecipeMap<BiomeRecipeBuilder> BLENDER_RECIPES = new RecipeMap<>("blender", 9, 1, 6, 2, new BiomeRecipeBuilder().EUt(VA[LV]), false)
+    public static final RecipeMap<HeightRecipeBuilder> BLENDER_RECIPES = new RecipeMap<>("blender", 9, 1, 6, 2, new HeightRecipeBuilder().EUt(VA[LV]), false)
             .setSlotOverlay(false, false, false, GuiTextures.MOLECULAR_OVERLAY_1)
             .setSlotOverlay(false, false, true, GuiTextures.MOLECULAR_OVERLAY_2)
             .setSlotOverlay(false, true, false, GuiTextures.MOLECULAR_OVERLAY_3)
@@ -369,12 +369,14 @@ public class SuSyRecipeMaps {
                 .cleanroom(recipeBuilder.getCleanroom())
                 .duration(recipeBuilder.getDuration())
                 .EUt(recipeBuilder.getEUt())
-
-                /**
-                 *  So that this recipe only works in the nether
-                 */
-                .biomes("hell")
                 .buildAndRegister());
+
+        SuSyRecipeMaps.BLENDER_RECIPES.recipeBuilder()
+                .fluidInputs(Materials.Water.getFluid(1000))
+                .EUt(300)
+                .duration(10)
+                .yLevel(70,77)
+                .buildAndRegister();
 
         SuSyRecipeMaps.EVAPORATION_POOL.recipeBuilder()
                 .fluidInputs(Materials.Water.getFluid(1000))
