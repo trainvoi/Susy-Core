@@ -373,6 +373,7 @@ public class SuSyRecipeMaps {
 
         SuSyRecipeMaps.BLENDER_RECIPES.recipeBuilder()
                 .fluidInputs(Materials.Water.getFluid(1000))
+                .fluidOutputs(Materials.Water.getFluid(1000))
                 .EUt(300)
                 .duration(10)
                 .yLevel(70,77)
