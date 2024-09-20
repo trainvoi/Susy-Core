@@ -7,8 +7,8 @@ import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.recipes.builders.FuelRecipeBuilder;
 import gregtech.api.recipes.builders.PrimitiveRecipeBuilder;
 import gregtech.api.recipes.builders.SimpleRecipeBuilder;
-import gregtech.api.unification.material.Materials;
 import gregtech.api.recipes.ingredients.GTRecipeInput;
+import gregtech.api.unification.material.Materials;
 import gregtech.core.sound.GTSoundEvents;
 import gregtechfoodoption.recipe.GTFORecipeMaps;
 import supersymmetry.api.gui.SusyGuiTextures;
@@ -301,7 +301,12 @@ public class SuSyRecipeMaps {
 
     public static final RecipeMap<DronePadRecipeBuilder> DRONE_PAD = new RecipeMap<>("drone_pad", 4, 9, 0, 0, new DronePadRecipeBuilder(), false);
 
-    public static final RecipeMap<SimpleRecipeBuilder> BLENDER_RECIPES = new RecipeMap<>("blender", 9, 1, 6, 2, new SimpleRecipeBuilder().EUt(VA[LV]), false)
+
+    /**
+     * Replace {@link SimpleRecipeBuilder} here with your own recipeBuilder
+     */
+    //    public static final RecipeMap<SimpleRecipeBuilder> BLENDER_RECIPES = new RecipeMap<>("blender", 9, 1, 6, 2, new SimpleRecipeBuilder().EUt(VA[LV]), false)
+    public static final RecipeMap<HeightRecipeBuilder> BLENDER_RECIPES = new RecipeMap<>("blender", 9, 1, 6, 2, new HeightRecipeBuilder().EUt(VA[LV]), false)
             .setSlotOverlay(false, false, false, GuiTextures.MOLECULAR_OVERLAY_1)
             .setSlotOverlay(false, false, true, GuiTextures.MOLECULAR_OVERLAY_2)
             .setSlotOverlay(false, true, false, GuiTextures.MOLECULAR_OVERLAY_3)
@@ -365,6 +370,14 @@ public class SuSyRecipeMaps {
                 .duration(recipeBuilder.getDuration())
                 .EUt(recipeBuilder.getEUt())
                 .buildAndRegister());
+
+        SuSyRecipeMaps.BLENDER_RECIPES.recipeBuilder()
+                .fluidInputs(Materials.Water.getFluid(1000))
+                .fluidOutputs(Materials.Water.getFluid(1000))
+                .EUt(300)
+                .duration(10)
+                .yLevel(70,77)
+                .buildAndRegister();
 
         SuSyRecipeMaps.EVAPORATION_POOL.recipeBuilder()
                 .fluidInputs(Materials.Water.getFluid(1000))
