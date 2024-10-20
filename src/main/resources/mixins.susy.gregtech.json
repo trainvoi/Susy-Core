@@ -6,9 +6,9 @@
   "compatibilityLevel" : "JAVA_8",
   "mixins" : [
     "BlockMachineMixin",
-    "MultiblockControllerBaseMixin",
     "MetaTileEntityFluidDrillMixin",
     "MetaTileEntityLargeMinerMixin",
-    "MetaTileEntityMinerMixin"
+    "MetaTileEntityMinerMixin",
+    "MultiblockControllerBaseMixin"
   ]
 }
